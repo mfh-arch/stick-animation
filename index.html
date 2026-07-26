@@ -69,6 +69,8 @@
     }
 
     function drawLanternGlow(x, y, colorRgb = [255, 220, 120]) {
+        if (isNaN(x) || isNaN(y)) return;
+        
         // Efek Pendaran Lentera
         let radius = 60;
         let gradient = ctx.createRadialGradient(x, y, 2, x, y, radius);
@@ -94,6 +96,8 @@
 
     function drawBlessingAura(x, y, progress) {
         let maxR = 90 * progress;
+        if (maxR <= 0) return;
+
         let gradient = ctx.createRadialGradient(x, y, 2, x, y, maxR);
         gradient.addColorStop(0, `rgba(255, 215, 0, ${0.7 * progress})`);
         gradient.addColorStop(1, `rgba(255, 215, 0, 0)`);
@@ -107,7 +111,7 @@
     function animate() {
         let t_raw = (Date.now() - startTime) / 1000.0;
         let totalCycleTime = 11.0;
-        let t = t_raw % totalCycleTime; // RAHASIA LOOPING
+        let t = t_raw % totalCycleTime; // LOOPING AUTOMATIS
 
         ctx.clearRect(0, 0, canvas.width, canvas.height);
 
@@ -256,7 +260,7 @@
             ctx.stroke();
 
             lanternX = handX + 2;
-            lantern_y = handY + 18;
+            lanternY = handY + 18; // PERBAIKAN: Penulisan variabel disamakan
         }
 
         // Tali Lentera & Glow
@@ -275,7 +279,7 @@
         requestAnimationFrame(animate);
     }
 
-    // LANGSUNG JALAN OTOMATIS TANPA KLIK!
+    // Jalankan Animasi
     animate();
 </script>
 </body>
